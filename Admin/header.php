@@ -228,6 +228,7 @@ if(!isset($_SESSION['admin'])) {
         <!-- Optionally, you can add icons to the links -->
         <li><a href="index.php"><i class="fa fa-dashboard"></i> <span>HOME</span></a></li>
         <li><a href="index.php?halaman=produk"><i class="fa fa-dashboard"></i> <span>Produk</span></a></li>
+        <li><a href="index.php?halaman=ongkir"><i class="fa fa-dashboard"></i> <span>Ongkir</span></a></li>
         <li><a href="index.php?halaman=pelanggan"><i class="fa fa-dashboard"></i> <span>Pelanggan</span></a></li>
         <li><a href="index.php?halaman=pembelian"><i class="fa fa-dashboard"></i> <span>Pembelian</span></a></li>
         <li><a href="index.php?halaman=logout"><i class="fa fa-dashboard"></i> <span>Logout</span></a></li>

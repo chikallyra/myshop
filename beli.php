@@ -18,5 +18,5 @@ if (isset($_SESSION['keranjang'][$id_produk])) {
 
 //hubungkan ke keranjang.php
 echo "<script>alert('Produk Telah Masuk Kedalam keranjang Belanja');</script>";
-echo "<script>location='keranjang.php';</script>";
+echo "<script>location='index.php';</script>";
 ?>

@@ -5,7 +5,7 @@
 			<th> No </th>
 			<th> Nama </th>
 			<th> Harga </th>
-			<th> Berat </th>
+			<th> Kategori </th>
 			<th> Foto </th>
 			<th> Aksi </th>
 		</tr>		
@@ -18,7 +18,7 @@
 			<td><?php echo $nomor; ?></td>
 			<td><?php echo $pecah['nama_produk'];?></td>	
 			<td>Rp.<?php echo number_format($pecah['harga_produk']);?></td>
-			<td><?php echo $pecah['berat_produk'];?> (Gr) </td>
+			<td><?php echo $pecah['kategori'];?></td>
 			<td>
 				<img src="../foto_produk/<?php echo $pecah['foto_produk'];?>"width="150" height="100">
 			</td>

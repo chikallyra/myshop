@@ -2,78 +2,98 @@
 session_start();
 include 'koneksi.php';
 
-//cek koneksi
 if (mysqli_connect_errno()) {
-	echo "Koneksi database gagal : " . mysqli_connect_error();
+  echo "Koneksi database gagal : " . mysqli_connect_error();
 }
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-	<title>Login pelanggan</title>
-		<link rel="stylesheet" href="admin/assets/bower_components/bootstrap/dist/css/bootstrap.min.css">	
+  <meta charset="UTF-8">
+  <title>Login Pelanggan | euntamin</title>
+  <link rel="stylesheet" href="admin/assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #fefcf9;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .panel {
+      border: 1px solid #e2d3b3;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .panel-heading {
+      background-color: #f5e5cc;
+      border-bottom: 1px solid #e2d3b3;
+    }
+    .panel-title {
+      font-size: 20px;
+      font-weight: bold;
+      color: #7b3e19;
+    }
+    .btn-primary {
+      background-color: #7b3e19;
+      border-color: #7b3e19;
+    }
+    .btn-primary:hover {
+      background-color: #5c2a0a;
+      border-color: #5c2a0a;
+    }
+    .form-control {
+      border: 1px solid #e2d3b3;
+    }
+    .container {
+      margin-top: 120px;
+    }
+  </style>
 </head>
 <body>
-<br><br><br><br><br><br>
-	<div class="container">
-		<div class="row">
-			<div class="col-md-4">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						 <div class ="panel-title text-center">
-						 <label>MY SHOP | LOGIN</label> 
-					</div>
-					<div class="panel-body">
-						<form method="post">
-							<div class="form-grup">
-								<label>Email</label>
-								<input type="email" class="form-control" name="email">
-							</div>
-							<div class="form-grup">
-								<label>Password</label>
-								<input type="password" class="form-control" name="password">
-							</div><br>	
-							<button class="btn btn-primary" name="simpan">LOGIN</button>
-							<p>Daftar Sebagai Pelanggan? <a href="daftar.php" style="text-decoration: none; "><b>Daftar</b></a></p>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-4 col-md-offset-4">
+      <div class="panel panel-default">
+        <div class="panel-heading text-center">
+          <label class="panel-title">🍽 eUtanmin | LOGIN PELANGGAN</label>
+        </div>
+        <div class="panel-body">
+          <form method="post">
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" class="form-control" name="email" required>
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input type="password" class="form-control" name="password" required>
+            </div>
+            <div class="form-group text-center">
+              <button class="btn btn-primary btn-block" name="simpan">🔐 LOGIN</button>
+            </div>
+            <p class="text-center">Belum punya akun? <a href="daftar.php" style="text-decoration: none;"><b>Daftar Sekarang</b></a></p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-	<?php 
-		//jk ada tombol simpan(tombol simpan ditekan)
-	if (isset($_POST['simpan'])) 
-	{
-		$email = $_POST['email'];
-		$password = $_POST['password'];
-		// lakukan query ngecek akun di tabel pelanggan di db
-		$ambil = $koneksi->query("SELECT * from pelanggan
-			where email_pelanggan='$email' and password_pelanggan='$password'");
+<?php 
+if (isset($_POST['simpan'])) {
+  $email = $_POST['email'];
+  $password = $_POST['password'];
+  $ambil = $koneksi->query("SELECT * FROM pelanggan WHERE email_pelanggan='$email' AND password_pelanggan='$password'");
+  $akunygcocok = $ambil->num_rows;
 
-		//ngitung akun yg terambil
-		$akunygcocok = $ambil->num_rows;
-
-		// jk 1 akun yg cocok, maka dilogikakan
-		if ($akunygcocok==1) 
-		{
-			// anda sudah login
-			// mendapatkan akun dlm bentuk array
-			$akun = $ambil->fetch_assoc();
-			//simpan di session pelanggan
-			$_SESSION["pelanggan"] = $akun;
-			echo "<script>alert('anda sukses login');</script>";
-			echo "<script>location='index.php'</script>";
-		}
-		else{
-			//anda gagal login
-			echo "<script>alert('anda gagal login, periksa kembali akun Anda');</script>";
-			echo "<script>location='login.php'</script>";
-		} 
-	}
-	 ?>
+  if ($akunygcocok == 1) {
+    $_SESSION["pelanggan"] = $ambil->fetch_assoc();
+    echo "<script>alert('Anda berhasil login');</script>";
+    echo "<script>location='index.php';</script>";
+  } else {
+    echo "<script>alert('Login gagal, periksa kembali email dan password Anda');</script>";
+    echo "<script>location='login.php';</script>";
+  }
+}
+?>
 
 </body>
 </html>
